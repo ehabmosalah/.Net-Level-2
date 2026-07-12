@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using myshop.Entities.Models;
 using myshop.Entities.ViewModels;
+using myshop.Entities.DTOs;
 using myshop.Infrastructure.Data;
 using myshop.Infrastructure.Repositories.IRepository;
 using System.Threading.Tasks;
+using AutoMapper;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace myshop.Web.Areas.Admin.Controllers
@@ -14,11 +16,13 @@ namespace myshop.Web.Areas.Admin.Controllers
     {
        private readonly IUnitOfWork _unitOfWork;
        private readonly IWebHostEnvironment _webHostEnvironment;
+       private readonly IMapper _mapper;
 
-        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -31,14 +35,7 @@ namespace myshop.Web.Areas.Admin.Controllers
         {
             var products = await _unitOfWork.Product.GetAllWithCategoryAsync();
 
-            var data = products.Select(x => new
-            {
-                id = x.Id,
-                name = x.Name,
-                description = x.Description,
-                price = x.Price,
-                categoryName = x.Category?.Name
-            });
+            var data = _mapper.Map<IEnumerable<ProductDto>>(products);
 
             return Json(new { data });
         }

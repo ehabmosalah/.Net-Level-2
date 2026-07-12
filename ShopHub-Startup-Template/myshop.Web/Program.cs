@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddAutoMapper(typeof(myshop.Web.Mapping.MappingProfile));
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>(
     options=>options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(4)
