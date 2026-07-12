@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using myshop.Entities.Models;
 using myshop.Infrastructure.Data;
+using myshop.Infrastructure.Repositories.IRepository;
+using myshop.Infrastructure.Repositories.Repository;
 using Stripe;
 using System;
 
@@ -17,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     )) ;
 
 
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>(
     options=>options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(4)

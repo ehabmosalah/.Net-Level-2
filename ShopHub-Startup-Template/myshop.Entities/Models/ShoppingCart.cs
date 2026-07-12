@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace myshop.Entities.Models
         public int ProductId { get; set; }
 
         [ForeignKey("ProductId")]
-        //[ValidateNever]
+        [ValidateNever]
         public Product Product { get; set; }
 
         public int Count { get; set; }
@@ -22,7 +23,7 @@ namespace myshop.Entities.Models
         public string ApplicationUserId { get; set; }
 
         [ForeignKey("ApplicationUserId")]
-        //[ValidateNever]
+        [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

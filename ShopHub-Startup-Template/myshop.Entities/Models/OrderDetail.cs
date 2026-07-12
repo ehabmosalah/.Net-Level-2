@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,11 @@ namespace myshop.Entities.Models
         public int Id { get; set; }
 
         public int OrderHeaderId { get; set; }
-       // [ValidateNever]
+        [ValidateNever]
         public OrderHeader OrderHeader { get; set; }
 
         public int ProductId { get; set; }
-        //[ValidateNever]
+       [ValidateNever]
         public Product Product { get; set; }
 
         public decimal Price { get; set; }
